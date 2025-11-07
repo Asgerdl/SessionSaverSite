@@ -1,0 +1,15 @@
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\bin\Debug\net9.0\BrowserlessScraper.exe
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\bin\Debug\net9.0\BrowserlessScraper.deps.json
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\bin\Debug\net9.0\BrowserlessScraper.runtimeconfig.json
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\bin\Debug\net9.0\BrowserlessScraper.dll
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\bin\Debug\net9.0\BrowserlessScraper.pdb
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.AssemblyInfoInputs.cache
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.AssemblyInfo.cs
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.csproj.CoreCompileInputs.cache
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.sourcelink.json
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.dll
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\refint\BrowserlessScraper.dll
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.pdb
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\BrowserlessScraper.genruntimeconfig.cache
+C:\Users\alarsen\Documents\GitHub\SessionSaverSite\BrowserlessScraper\obj\Debug\net9.0\ref\BrowserlessScraper.dll

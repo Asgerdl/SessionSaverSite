@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "BrowserlessScraper/1.0.0": {
+        "runtime": {
+          "BrowserlessScraper.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BrowserlessScraper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

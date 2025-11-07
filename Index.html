@@ -1,209 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Session Saver</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        .input-section {
-            background: #927878;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        #sessionInput {
-            width: 98%;
-            height: 150px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-        }
-        #sessionTitle {
-            width: calc(100% - 120px);
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .session-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .session-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .session-content {
-            white-space: pre-wrap; /* Retains formatting/line breaks of pasted text */
-            background-color: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            max-height: 200px; /* Initial view height */
-            overflow: auto;
-            transition: max-height 0.3s ease-out;
-        }
-        .content-hidden {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            border: none;
-            overflow: hidden;
-        }
-        .title-info {
-            font-weight: bold;
-            color: #007bff;
-        }
-        .session-buttons button {
-            margin-left: 5px;
-            padding: 5px 10px;
-            font-size: 0.9em;
-        }
-        .delete-btn {
-            background-color: #dc3545;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Context Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+    #context-output {
+      margin-top: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
-    <h1>🤖 Chatbot Session Saver</h1>
-    <div class="input-section">
-        <textarea id="sessionInput" placeholder="Paste your chatbot conversation session here..."></textarea>
-        <input type="text" id="sessionTitle" placeholder="Give your session a title (e.g., 'Project X Planning')">
-        <button onclick="saveSession()">Save Session</button>
-    </div>
+  <h1>LLM Context Editor</h1>
 
-    <hr>
+  <label for="context-input">Enter context for the LLM:</label><br />
+  <textarea id="context-input" placeholder="Write your context here..."></textarea><br />
+  <button onclick="addContext()">Add to Page</button>
 
-    <h2>Saved Sessions</h2>
-    <div id="sessionsContainer">
-        </div>
+  <div id="context-output">
+    <h2>Context Output</h2>
+    <div id="context-list"></div>
+  </div>
 
-    <script>
-        // Function to generate a unique ID
-        const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
-
-        // Function to save a new session
-        function saveSession() {
-            const content = document.getElementById('sessionInput').value.trim();
-            const title = document.getElementById('sessionTitle').value.trim() || 'Untitled Session';
-
-            if (content === '') {
-                alert('Please paste a conversation into the text area.');
-                return;
-            }
-
-            const session = {
-                id: generateId(),
-                title: title,
-                content: content,
-                timestamp: new Date().toLocaleString()
-            };
-
-            // Retrieve existing sessions or initialize an empty array
-            let sessions = JSON.parse(localStorage.getItem('chatbotSessions')) || [];
-            sessions.push(session);
-
-            // Save back to local storage
-            localStorage.setItem('chatbotSessions', JSON.stringify(sessions));
-
-            // Clear input fields
-            document.getElementById('sessionInput').value = '';
-            document.getElementById('sessionTitle').value = '';
-
-            // Re-render the list
-            renderSessions();
-        }
-
-        // Function to delete a session
-        function deleteSession(id) {
-            if (!confirm('Are you sure you want to delete this session?')) return;
-
-            let sessions = JSON.parse(localStorage.getItem('chatbotSessions')) || [];
-            // Filter out the session with the matching ID
-            sessions = sessions.filter(session => session.id !== id);
-
-            localStorage.setItem('chatbotSessions', JSON.stringify(sessions));
-            renderSessions();
-        }
-
-        // Function to toggle the content visibility
-        function toggleContent(id) {
-            const contentElement = document.getElementById(`content-${id}`);
-            const buttonElement = document.getElementById(`toggle-btn-${id}`);
-            
-            contentElement.classList.toggle('content-hidden');
-            
-            if (contentElement.classList.contains('content-hidden')) {
-                buttonElement.textContent = 'Expand';
-            } else {
-                buttonElement.textContent = 'Minimize';
-            }
-        }
-
-        // Function to create the HTML element for a saved session
-        function createSessionCard(session) {
-            const card = document.createElement('div');
-            card.className = 'session-card';
-            card.id = `card-${session.id}`;
-
-            card.innerHTML = `
-                <div class="session-header">
-                    <span class="title-info">${session.title} - Saved: ${session.timestamp}</span>
-                    <div class="session-buttons">
-                        <button id="toggle-btn-${session.id}" onclick="toggleContent('${session.id}')">Minimize</button>
-                        <button class="delete-btn" onclick="deleteSession('${session.id}')">Delete</button>
-                    </div>
-                </div>
-                <div class="session-content" id="content-${session.id}">${session.content}</div>
-            `;
-
-            return card;
-        }
-
-        // Function to render all sessions from local storage
-        function renderSessions() {
-            const container = document.getElementById('sessionsContainer');
-            container.innerHTML = ''; // Clear current content
-
-            const sessions = JSON.parse(localStorage.getItem('chatbotSessions')) || [];
-
-            // Render in reverse chronological order (newest first)
-            sessions.reverse().forEach(session => {
-                container.appendChild(createSessionCard(session));
-            });
-        }
-
-        // Load sessions when the page first loads
-        document.addEventListener('DOMContentLoaded', renderSessions);
-    </script>
+  <script>
+    function addContext() {
+      const input = document.getElementById("context-input").value;
+      if (input.trim() !== "") {
+        const para = document.createElement("p");
+        para.textContent = input;
+        document.getElementById("context-list").appendChild(para);
+        document.getElementById("context-input").value = "";
+      }
+    }
+  </script>
 </body>
 </html>
