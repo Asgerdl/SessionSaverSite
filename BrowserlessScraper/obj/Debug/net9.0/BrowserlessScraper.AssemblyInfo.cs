@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BrowserlessScraper")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2cc3cd447bf0205efb3fd20db33331239582ce4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5df342d066bd31b27e22e858c5801a830a9206c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("BrowserlessScraper")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BrowserlessScraper")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

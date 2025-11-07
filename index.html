@@ -35,14 +35,32 @@
   </div>
 
   <script>
+    // Load saved context on page load
+    window.onload = function () {
+      const saved = JSON.parse(localStorage.getItem("llmContext")) || [];
+      saved.forEach(text => appendToPage(text));
+    };
+
     function addContext() {
-      const input = document.getElementById("context-input").value;
-      if (input.trim() !== "") {
-        const para = document.createElement("p");
-        para.textContent = input;
-        document.getElementById("context-list").appendChild(para);
-        document.getElementById("context-input").value = "";
+      const input = document.getElementById("context-input");
+      const text = input.value.trim();
+      if (text !== "") {
+        appendToPage(text);
+        saveToLocalStorage(text);
+        input.value = "";
       }
+    }
+
+    function appendToPage(text) {
+      const para = document.createElement("p");
+      para.textContent = text;
+      document.getElementById("context-list").appendChild(para);
+    }
+
+    function saveToLocalStorage(text) {
+      const existing = JSON.parse(localStorage.getItem("llmContext")) || [];
+      existing.push(text);
+      localStorage.setItem("llmContext", JSON.stringify(existing));
     }
   </script>
 </body>
