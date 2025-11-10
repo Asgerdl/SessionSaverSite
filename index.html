@@ -3,117 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimizable Windows Example</title>
+    <title>Stacked Minimizable Windows</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            margin: 20px;
+            background-color: #f0ffef; /* Light green background */
         }
+        
         /* --- Window Styles --- */
         .window {
-            /* Basic positioning and size */
-            position: absolute;
-            width: 300px;
-            height: 200px;
-            min-width: 200px;
-            min-height: 100px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border: 1px solid #ccc;
-            background-color: #fff;
-            /* Resizing handle */
-            resize: both;
-            overflow: auto; /* Allows content to scroll if window is resized smaller */
+            width: 400px; /* Fixed width */
+            margin-bottom: 15px; /* Space between windows */
+            border: 1px solid #1c7c51;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            overflow: hidden; /* Ensures content doesn't spill out when minimized */
+            transition: all 0.3s ease-in-out; /* Smooth transition for minimizing/expanding */
         }
 
         .window-header {
-            background-color: #007bff;
+            background-color: #38b000; /* Distinct header color */
             color: white;
-            padding: 5px 10px;
-            cursor: grab; /* Indicates the header can be used to drag */
+            padding: 8px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            user-select: none; /* Prevents text selection while dragging */
+            cursor: pointer; /* Indicates clickable header */
+            user-select: none;
         }
 
         .window-title {
             font-weight: bold;
+            font-size: 1.1em;
         }
 
         .window-controls button {
             background: none;
             border: none;
             color: white;
-            font-size: 16px;
-            margin-left: 5px;
+            font-size: 18px;
             cursor: pointer;
             padding: 0 5px;
-            line-height: 1; /* Aligns the icon/text */
+            line-height: 1;
         }
 
         .window-content {
-            padding: 10px;
-            overflow-y: auto;
-            max-height: calc(100% - 30px); /* Adjust based on header height */
-            /* The 'minimized' class will override this */
+            padding: 15px;
+            height: auto; /* Default height */
+            max-height: 500px; /* Used for the transition effect */
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+            border-top: 1px solid #eee;
         }
         
         /* --- Minimized State --- */
-        .window.minimized {
-            height: auto !important; /* Forces the window to only be the size of the header */
-            width: 300px; /* Keep a consistent width when minimized */
-            min-height: 30px;
-            resize: none !important;
-            overflow: hidden !important;
-        }
         .window.minimized .window-content {
-            display: none;
+            max-height: 0; /* Hides the content smoothly */
+            padding-top: 0;
+            padding-bottom: 0;
+            visibility: hidden; /* Ensures links/buttons inside are not clickable */
+        }
+        .window.minimized .window-header {
+             background-color: #1c7c51; /* Slightly darker header when minimized */
         }
     </style>
 </head>
 <body>
 
-<div id="window1" class="window" style="top: 50px; left: 50px;">
-    <div class="window-header">
-        <span class="window-title">Window Alpha</span>
+<div id="window1" class="window">
+    <div class="window-header" onclick="toggleMinimize('window1')">
+        <span class="window-title">📂 Window Alpha - Primary Data</span>
         <div class="window-controls">
-            <button onclick="toggleMinimize('window1')">_</button>
+            <button title="Click to minimize/expand">_</button>
         </div>
     </div>
     <div class="window-content">
-        <p>This is the first window. It contains some placeholder content.</p>
-        <p>Aliquid est, non sit ad. Qui reiciendis in, non velit rerum vitae.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>This is the first window. It now behaves like an accordion panel.</p>
+        <p>Aliquam erat volutpat. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+        <p>Placeholder text 1: You can remove the `onclick` from the header if you prefer to only use the button to minimize.</p>
     </div>
 </div>
 
-<div id="window2" class="window" style="top: 80px; left: 380px;">
-    <div class="window-header">
-        <span class="window-title">Window Beta</span>
+<div id="window2" class="window">
+    <div class="window-header" onclick="toggleMinimize('window2')">
+        <span class="window-title">📝 Window Beta - Supplementary Info</span>
         <div class="window-controls">
-            <button onclick="toggleMinimize('window2')">_</button>
+            <button title="Click to minimize/expand">_</button>
         </div>
     </div>
     <div class="window-content">
-        <p>Window number two, chilling out.</p>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Random text for modification later: 12345 ABCDE</p>
+        <p>Window number two, stacked right below the first one.</p>
+        <p>Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+        <p>Placeholder text 2: Note that the content area automatically shrinks and expands smoothly due to the CSS `transition` properties.</p>
     </div>
 </div>
 
-<div id="window3" class="window" style="top: 110px; left: 710px;">
-    <div class="window-header">
-        <span class="window-title">Window Gamma</span>
+<div id="window3" class="window">
+    <div class="window-header" onclick="toggleMinimize('window3')">
+        <span class="window-title">⚙️ Window Gamma - Settings/Options</span>
         <div class="window-controls">
-            <button onclick="toggleMinimize('window3')">_</button>
+            <button title="Click to minimize/expand">_</button>
         </div>
     </div>
     <div class="window-content">
-        <p>The third and final identical window.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-        <p>Remember to update this content to your actual site text!</p>
+        <p>The third and final identical window, sitting at the bottom of the stack.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Placeholder text 3: The whole header is now clickable to toggle the content.</p>
     </div>
 </div>
 
@@ -126,65 +121,6 @@
         const windowElement = document.getElementById(windowId);
         windowElement.classList.toggle('minimized');
     }
-
-    /**
-     * Makes a window draggable by its header.
-     * @param {HTMLElement} windowElement - The window element.
-     * @param {HTMLElement} headerElement - The header element used for dragging.
-     */
-    function makeDraggable(windowElement, headerElement) {
-        let offsetX, offsetY, isDragging = false;
-
-        headerElement.addEventListener('mousedown', (e) => {
-            // Prevent dragging if the window is minimized
-            if (windowElement.classList.contains('minimized')) return;
-
-            isDragging = true;
-            headerElement.style.cursor = 'grabbing';
-            // Calculate mouse position relative to the element
-            offsetX = e.clientX - windowElement.offsetLeft;
-            offsetY = e.clientY - windowElement.offsetTop;
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            // Calculate new position
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-
-            // Constrain movement to be within the viewport
-            newX = Math.max(0, newX);
-            newY = Math.max(0, newY);
-            newX = Math.min(newX, window.innerWidth - windowElement.offsetWidth);
-            newY = Math.min(newY, window.innerHeight - windowElement.offsetHeight);
-
-            windowElement.style.left = newX + 'px';
-            windowElement.style.top = newY + 'px';
-        });
-
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                headerElement.style.cursor = 'grab';
-            }
-        });
-    }
-
-    // Initialize dragging for each window
-    document.addEventListener('DOMContentLoaded', () => {
-        const window1 = document.getElementById('window1');
-        const header1 = window1.querySelector('.window-header');
-        makeDraggable(window1, header1);
-
-        const window2 = document.getElementById('window2');
-        const header2 = window2.querySelector('.window-header');
-        makeDraggable(window2, header2);
-
-        const window3 = document.getElementById('window3');
-        const header3 = window3.querySelector('.window-header');
-        makeDraggable(window3, header3);
-    });
 </script>
 
 </body>
