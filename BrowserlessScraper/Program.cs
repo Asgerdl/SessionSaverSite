@@ -10,6 +10,12 @@ class Program
         Console.Write("Enter your Browserless API key: ");
         string apiKey = Console.ReadLine();
 
+        // Use "BrowserLess API key" as default if no input is provided
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            apiKey = "2TNbJHrbEzXpbCx5616da05fbfb2ff41091276e8479eacaaf";
+        }
+
         var targetUrl = "https://asgerdl.github.io/SessionSaverSite/";
         var client = new HttpClient();
         var requestUri = $"https://production-sfo.browserless.io/content?token={apiKey}";
