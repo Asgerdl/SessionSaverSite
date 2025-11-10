@@ -1,125 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimizable Text Panels</title>
+    <title>Simple Panel Site</title>
     <style>
-        /* Basic styling for the container and panels */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #f4f4f9;
         }
         .panel {
             border: 1px solid #ccc;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
         .panel-header {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer; /* Indicates it's clickable */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 8px 8px 0 0;
-        }
-        .panel-title {
-            margin: 0;
-            font-size: 1.2em;
-        }
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
+            background-color: #f2f2f2;
+            padding: 10px;
             cursor: pointer;
-            line-height: 1; /* Ensures good vertical alignment */
+            font-weight: bold;
         }
         .panel-content {
-            padding: 15px;
-            border-top: 1px solid #eee;
-            /* Animation for smooth transition (optional) */
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            overflow: hidden;
-        }
-        /* Class added by JavaScript when panel is minimized */
-        .minimized .panel-content {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            border-top: none;
-        }
-        /* Visual cue for minimized state (changes header style) */
-        .minimized .panel-header {
-            border-radius: 8px;
-            background-color: #0056b3; /* Slightly darker when minimized */
+            padding: 10px;
+            display: block;
         }
     </style>
-</head>
-<body>
-
-    <h1>Minimizable Panels Site</h1>
-
-    <div class="panel" id="panel1">
-        <div class="panel-header" onclick="togglePanel('panel1')">
-            <h2 class="panel-title">Panel Title One: Project Alpha</h2>
-            <button class="toggle-btn" aria-expanded="true" aria-controls="panel1-content">
-                &minus; </button>
-        </div>
-        <div class="panel-content" id="panel1-content">
-            <p>This is the content for the first panel. You can replace this text with any information you need to display. The goal here is to keep the layout simple and functional. When you click the header, this content area will collapse or expand.</p>
-        </div>
-    </div>
-
-    <div class="panel" id="panel2">
-        <div class="panel-header" onclick="togglePanel('panel2')">
-            <h2 class="panel-title">Panel Title Two: Beta Testing Summary</h2>
-            <button class="toggle-btn" aria-expanded="true" aria-controls="panel2-content">
-                &minus;
-            </button>
-        </div>
-        <div class="panel-content" id="panel2-content">
-            <p>Panel number two contains exactly the same structure as the others. This ensures consistency across your site. The key to the minimizing function is toggling a CSS class using a simple JavaScript function.</p>
-        </div>
-    </div>
-
-    <div class="panel" id="panel3">
-        <div class="panel-header" onclick="togglePanel('panel3')">
-            <h2 class="panel-title">Panel Title Three: Future Plans</h2>
-            <button class="toggle-btn" aria-expanded="true" aria-controls="panel3-content">
-                &minus;
-            </button>
-        </div>
-        <div class="panel-content" id="panel3-content">
-            <p>Finally, the third panel. Remember, you can duplicate and modify the `div` with the class "panel" to create as many sections as you need. Just be sure to change the unique `id` and update the `togglePanel()` call in the header!</p>
-        </div>
-    </div>
-
     <script>
-        // JavaScript function to toggle the minimized state
-        function togglePanel(panelId) {
-            const panel = document.getElementById(panelId);
-            const button = panel.querySelector('.toggle-btn');
-
-            // Toggles the 'minimized' class on the main panel element
-            panel.classList.toggle('minimized');
-
-            // Update the button text and aria-expanded state for accessibility
-            const isMinimized = panel.classList.contains('minimized');
-            if (isMinimized) {
-                button.innerHTML = '&#43;'; // Plus sign for closed
-                button.setAttribute('aria-expanded', 'false');
+        function togglePanel(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none") {
+                content.style.display = "block";
             } else {
-                button.innerHTML = '&minus;'; // Minus sign for open
-                button.setAttribute('aria-expanded', 'true');
+                content.style.display = "none";
             }
         }
     </script>
+</head>
+<body>
+
+    <div class="panel">
+        <div class="panel-header" onclick="togglePanel('content1')">Panel Title 1</div>
+        <div class="panel-content" id="content1">
+            <p>This is some placeholder text for panel 1. You can modify it later.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header" onclick="togglePanel('content2')">Panel Title 2</div>
+        <div class="panel-content" id="content2">
+            <p>This is some placeholder text for panel 2. You can modify it later.</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header" onclick="togglePanel('content3')">Panel Title 3</div>
+        <div class="panel-content" id="content3">
+            <p>This is some placeholder text for panel 3. You can modify it later.</p>
+        </div>
+    </div>
 
 </body>
 </html>
